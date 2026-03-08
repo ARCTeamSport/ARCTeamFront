@@ -3,9 +3,10 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CoachTheme } from '@/constants/theme';
 import GreetingHeader from './components/GreetingHeader';
+import DailyComplianceCard from './components/DailyComplianceCard';
+import ActivityFeedList from './components/ActivityFeedList';
+import PendingRequestsCard from './components/PendingRequestsCard';
 import RecommendationCard from './components/RecommendationCard';
-import ActivitySection from './components/ActivitySection';
-import MealPlanCard from './components/MealPlanCard';
 
 export default function CoachDashboard() {
     const insets = useSafeAreaInsets();
@@ -17,14 +18,10 @@ export default function CoachDashboard() {
             showsVerticalScrollIndicator={false}
         >
             <GreetingHeader />
+            <DailyComplianceCard completed={8} total={12} />
             <RecommendationCard />
-            <ActivitySection
-                stepsProgress={0.6}
-                calories={480}
-                waterGlasses={12}
-                steps={6000}
-            />
-            <MealPlanCard />
+            <PendingRequestsCard />
+            <ActivityFeedList />
         </ScrollView>
     );
 }
@@ -35,6 +32,6 @@ const styles = StyleSheet.create({
         backgroundColor: CoachTheme.background,
     },
     content: {
-        paddingBottom: 20,
+        paddingBottom: 100,
     },
 });

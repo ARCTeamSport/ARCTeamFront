@@ -24,26 +24,41 @@ interface TabConfig {
 }
 
 const TABS: TabConfig[] = [
-    { name: 'index', label: 'Ana Sayfa', icon: 'home-outline', iconActive: 'home' },
-    { name: 'athletes', label: 'Sporcular', icon: 'people-outline', iconActive: 'people' },
+    { name: 'index', label: 'Ana Sayfa', icon: 'grid-outline', iconActive: 'grid' },
+    { name: 'team', label: 'Takımım', icon: 'people-outline', iconActive: 'people' },
+    { name: 'library', label: 'Kütüphane', icon: 'barbell-outline', iconActive: 'barbell' },
+    { name: 'templates', label: 'Şablonlar', icon: 'copy-outline', iconActive: 'copy' },
     { name: 'messages', label: 'Mesajlar', icon: 'chatbubble-outline', iconActive: 'chatbubble' },
     { name: 'profile', label: 'Profil', icon: 'person-outline', iconActive: 'person' },
 ];
 
 const TAB_COUNT = TABS.length;
-const TAB_BAR_HORIZONTAL_PADDING = 16;
+const TAB_BAR_HORIZONTAL_PADDING = 12;
 const USABLE_WIDTH = SCREEN_WIDTH - TAB_BAR_HORIZONTAL_PADDING * 2;
 const TAB_WIDTH = USABLE_WIDTH / TAB_COUNT;
-const INDICATOR_WIDTH = 44;
+const INDICATOR_WIDTH = 36;
 const INDICATOR_OFFSET = (TAB_WIDTH - INDICATOR_WIDTH) / 2;
 
 export default function AnimatedTabBar({ state, navigation }: BottomTabBarProps) {
     const insets = useSafeAreaInsets();
     const translateX = useRef(new Animated.Value(0)).current;
+
+    // Aktif olan sekmenin ismini al
+    const currentRouteName = state.routes[state.index]?.name;
+    // TABS dizisinde kaçıncı sırada olduğunu bul
+    let activeIndex = TABS.findIndex(t => t.name === currentRouteName);
+
+    // Eğer TABS içinde yoksa (gizli sekmeler örn: invitation-hub)
+    if (activeIndex === -1) {
+        if (currentRouteName === 'invitation-hub') activeIndex = 1; // 'team' sekmesini aktif göster
+        else activeIndex = 0; // varsayılan
+    }
+
+    // Her tab için bir scale animasyonu
     const scaleAnims = useRef(TABS.map(() => new Animated.Value(1))).current;
 
     useEffect(() => {
-        const targetX = state.index * TAB_WIDTH + INDICATOR_OFFSET;
+        const targetX = activeIndex * TAB_WIDTH + INDICATOR_OFFSET;
         Animated.spring(translateX, {
             toValue: targetX,
             useNativeDriver: true,
@@ -51,10 +66,9 @@ export default function AnimatedTabBar({ state, navigation }: BottomTabBarProps)
             bounciness: 6,
         }).start();
 
-        // Scale animation for active tab
         scaleAnims.forEach((anim, i) => {
             Animated.spring(anim, {
-                toValue: i === state.index ? 1.15 : 1,
+                toValue: i === activeIndex ? 1.15 : 1,
                 useNativeDriver: true,
                 speed: 20,
                 bounciness: 8,
@@ -79,9 +93,8 @@ export default function AnimatedTabBar({ state, navigation }: BottomTabBarProps)
     };
 
     return (
-        <View style={[styles.wrapper, { paddingBottom: insets.bottom + 12 }]}>
+        <View style={[styles.wrapper, { paddingBottom: insets.bottom + 8 }]}>
             <View style={styles.container}>
-                {/* Sliding indicator */}
                 <Animated.View
                     style={[
                         styles.indicator,
@@ -90,7 +103,7 @@ export default function AnimatedTabBar({ state, navigation }: BottomTabBarProps)
                 />
 
                 {TABS.map((tab, index) => {
-                    const isActive = state.index === index;
+                    const isActive = activeIndex === index;
                     return (
                         <TouchableOpacity
                             key={tab.name}
@@ -106,7 +119,7 @@ export default function AnimatedTabBar({ state, navigation }: BottomTabBarProps)
                             >
                                 <Ionicons
                                     name={isActive ? tab.iconActive : tab.icon}
-                                    size={22}
+                                    size={20}
                                     color={isActive ? CoachTheme.accent : CoachTheme.textMuted}
                                 />
                             </Animated.View>
@@ -115,6 +128,7 @@ export default function AnimatedTabBar({ state, navigation }: BottomTabBarProps)
                                     styles.label,
                                     isActive && styles.labelActive,
                                 ]}
+                                numberOfLines={1}
                             >
                                 {tab.label}
                             </Text>
@@ -137,7 +151,7 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         borderWidth: 1,
         borderColor: CoachTheme.tabBarBorder,
-        height: 64,
+        height: 62,
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
@@ -147,8 +161,8 @@ const styles = StyleSheet.create({
         top: 6,
         left: 0,
         width: INDICATOR_WIDTH,
-        height: 4,
-        borderRadius: 2,
+        height: 3,
+        borderRadius: 1.5,
         backgroundColor: CoachTheme.accent,
         shadowColor: CoachTheme.accent,
         shadowOffset: { width: 0, height: 2 },
@@ -160,18 +174,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 4,
-        paddingTop: 6,
+        gap: 3,
+        paddingTop: 4,
     },
     iconWrapper: {
-        width: 32,
-        height: 32,
+        width: 28,
+        height: 28,
         justifyContent: 'center',
         alignItems: 'center',
     },
     label: {
         color: CoachTheme.textMuted,
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: '600',
     },
     labelActive: {

@@ -59,6 +59,24 @@ export const CoachTheme = {
   error: '#FF4D6A',
   tabBarBg: '#0D1114',
   tabBarBorder: '#1A2228',
+  // Coach dashboard management colors
+  neonBlue: '#00D1FF',
+  success: '#34D399',
+  warning: '#FBBF24',
+  badgeAthlete: '#00B4FF',
+  badgeAthleteDim: 'rgba(0, 180, 255, 0.15)',
+  badgeCompetitor: '#FF6B2C',
+  badgeCompetitorDim: 'rgba(255, 107, 44, 0.15)',
+  fabBg: '#00E5A0',
+  fabShadow: 'rgba(0, 229, 160, 0.4)',
+  inputBg: '#0F1418',
+  inputBorder: '#1E2A30',
+  progressBg: '#1A2228',
+  progressFill: '#00E5A0',
+  unreadBadge: '#FF4D6A',
+  sectionBg: '#111518',
+  divider: '#1A2228',
+  overlay: 'rgba(10, 14, 16, 0.95)',
 };
 
 export const AthleteTheme = {

@@ -33,6 +33,8 @@ export default function RegisterScreen() {
     const [role, setRole] = useState<Role>('Athlete');
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [inviteCode, setInviteCode] = useState('');
+    const [showInviteCode, setShowInviteCode] = useState(false);
 
     // Animations
     const logoScale = useRef(new Animated.Value(0)).current;
@@ -106,6 +108,7 @@ export default function RegisterScreen() {
                     lastName: form.lastName,
                     phoneNumber: form.phoneNumber,
                     role: roleToInt(role),
+                    inviteCode: inviteCode.trim() || undefined,
                 }),
             });
 
@@ -248,6 +251,33 @@ export default function RegisterScreen() {
 
                         <RolePicker selectedRole={role} onSelect={setRole} />
 
+                        {/* Davet Kodu (Opsiyonel) */}
+                        <TouchableOpacity
+                            style={styles.inviteToggle}
+                            onPress={() => setShowInviteCode(!showInviteCode)}
+                            activeOpacity={0.7}
+                        >
+                            <Ionicons name="key-outline" size={16} color={AuthTheme.accent} />
+                            <Text style={styles.inviteToggleText}>
+                                {showInviteCode ? 'Davet kodunu gizle' : 'Davet kodun var mı?'}
+                            </Text>
+                            <Ionicons
+                                name={showInviteCode ? 'chevron-up' : 'chevron-down'}
+                                size={16}
+                                color={AuthTheme.textSecondary}
+                            />
+                        </TouchableOpacity>
+                        {showInviteCode && (
+                            <AuthInput
+                                label="Davet Kodu"
+                                icon="key-outline"
+                                placeholder="Örn: 5XKLT3"
+                                autoCapitalize="characters"
+                                value={inviteCode}
+                                onChangeText={setInviteCode}
+                            />
+                        )}
+
                         <AuthButton title="Kayıt Ol" onPress={handleRegister} loading={loading} />
                     </Animated.View>
 
@@ -332,6 +362,19 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         padding: 12,
         marginBottom: 16,
+    },
+    inviteToggle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        paddingVertical: 10,
+        marginBottom: 4,
+    },
+    inviteToggleText: {
+        color: AuthTheme.accent,
+        fontSize: 13,
+        fontWeight: '600',
+        flex: 1,
     },
     errorBannerText: {
         color: AuthTheme.error,

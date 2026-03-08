@@ -14,7 +14,9 @@ export default function CoachLayout() {
                 }}
             >
                 <Tabs.Screen name="index" />
-                <Tabs.Screen name="athletes" />
+                <Tabs.Screen name="team" />
+                <Tabs.Screen name="library" />
+                <Tabs.Screen name="templates" />
                 <Tabs.Screen name="messages" />
                 <Tabs.Screen name="profile" />
             </Tabs>

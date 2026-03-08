@@ -18,4 +18,12 @@ export const API_ENDPOINTS = {
         UPDATE: (userId: string) => `${API_BASE_URL}/api/update/${userId}`,
     },
     PERSONAL_INFO: `${API_BASE_URL}/api/PersonalInformation`,
+    TEAM: {
+        MY_TEAM: `${API_BASE_URL}/api/TeamMember/my-team`,
+        SEARCH_USER: (query: string) => `${API_BASE_URL}/api/TeamMember/search-user?query=${encodeURIComponent(query)}`,
+        ADD_BY_ID: `${API_BASE_URL}/api/TeamMember/add-by-id`,
+        GENERATE_INVITE: `${API_BASE_URL}/api/TeamMember/generate-invite`,
+        ACTIVE_INVITES: `${API_BASE_URL}/api/TeamMember/active-invites`,
+        CANCEL_INVITE: (id: number) => `${API_BASE_URL}/api/TeamMember/cancel-invite/${id}`,
+    },
 };
