@@ -26,4 +26,10 @@ export const API_ENDPOINTS = {
         ACTIVE_INVITES: `${API_BASE_URL}/api/TeamMember/active-invites`,
         CANCEL_INVITE: (id: number) => `${API_BASE_URL}/api/TeamMember/cancel-invite/${id}`,
     },
+    EXERCISE: {
+        GET_LIST: `${API_BASE_URL}/api/Exercise/get-exercise-list`,
+        CREATE: `${API_BASE_URL}/api/Exercise/create-exercise`,
+        UPDATE: (id: number) => `${API_BASE_URL}/api/Exercise/update-exercise/${id}`,
+        DELETE: (id: number) => `${API_BASE_URL}/api/Exercise/delete-exercise/${id}`,
+    },
 };
