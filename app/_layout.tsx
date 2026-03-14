@@ -21,6 +21,7 @@ export default function RootLayout() {
         <Stack.Screen name="(competitor)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        <Stack.Screen name="exercise/[id]" options={{ presentation: 'modal', title: 'Egzersiz Detayı', headerShown: true }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

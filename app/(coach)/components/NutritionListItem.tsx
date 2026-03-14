@@ -9,11 +9,12 @@ interface Props {
     protein: number;
     carbs: number;
     fat: number;
+    onPress: () => void;
 }
 
-export default function NutritionListItem({ name, calories, protein, carbs, fat }: Props) {
+export default function NutritionListItem({ name, calories, protein, carbs, fat, onPress }: Props) {
     return (
-        <TouchableOpacity style={styles.card} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.card} activeOpacity={0.7} onPress={onPress}>
             <View style={styles.iconContainer}>
                 <Ionicons name="nutrition" size={22} color={CoachTheme.statCalorie} />
             </View>

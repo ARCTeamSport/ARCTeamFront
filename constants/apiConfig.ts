@@ -2,7 +2,7 @@ export const API_CONFIG = {
     // Bütün backend API'leri için merkezi IP adresi
     // Bu IP adresini projeyi başka bir bilgisayarda (veya gerçek bir sunucuda) 
     // çalıştırdığınızda değiştirebilirsiniz.
-    BASE_IP: '192.168.1.135',
+    BASE_IP: '192.168.1.137',
     PORT: '5276',
 };
 
@@ -28,8 +28,23 @@ export const API_ENDPOINTS = {
     },
     EXERCISE: {
         GET_LIST: `${API_BASE_URL}/api/Exercise/get-exercise-list`,
+        GET_BY_ID: (id: number) => `${API_BASE_URL}/api/Exercise/${id}`,
         CREATE: `${API_BASE_URL}/api/Exercise/create-exercise`,
         UPDATE: (id: number) => `${API_BASE_URL}/api/Exercise/update-exercise/${id}`,
         DELETE: (id: number) => `${API_BASE_URL}/api/Exercise/delete-exercise/${id}`,
+    },
+    NUTRITION: {
+        GET_LIST: `${API_BASE_URL}/api/Nutrition/get-nutrition-list`,
+        CREATE: `${API_BASE_URL}/api/Nutrition/create-nutrition`,
+        UPDATE: (id: number) => `${API_BASE_URL}/api/Nutrition/update-nutrition/${id}`,
+        DELETE: (id: number) => `${API_BASE_URL}/api/Nutrition/delete-nutrition/${id}`,
+        GET_BY_ID: (id: number) => `${API_BASE_URL}/api/Nutrition/${id}`,
+    },
+    SUPPORT: {
+        GET_LIST: `${API_BASE_URL}/api/Support/get-support-list`,
+        CREATE: `${API_BASE_URL}/api/Support/create-support`,
+        UPDATE: (id: number) => `${API_BASE_URL}/api/Support/update-support/${id}`,
+        DELETE: (id: number) => `${API_BASE_URL}/api/Support/delete-support/${id}`,
+        GET_BY_ID: (id: number) => `${API_BASE_URL}/api/Support/${id}`,
     },
 };
